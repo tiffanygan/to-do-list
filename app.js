@@ -2,6 +2,7 @@ const addTaskBtn = document.getElementById('addTaskBtn');
 const taskInput = document.querySelector('#new-task');
 const ul = document.getElementById('tasks');
 const clearTaskBtn = document.getElementById('clearTaskBtn');
+const filterInput = document.getElementById('filter-tasks');
 
 function appendLiElement(newTask) {
     const iElement = document.createElement('i');
@@ -80,8 +81,19 @@ function clearTasks() {
     }
 }
 
+function filterTasks(event) {
+    Array.from(document.querySelector('#tasks').children).forEach(function(ele) {
+        if (ele.firstChild.textContent.toLowerCase().includes(event.target.value.toLowerCase())) {
+            ele.style.display = 'block';
+        } else {
+            ele.style.display = 'none';
+        }
+    })
+}
+
 taskInput.addEventListener('keyup', submitTask);
 addTaskBtn.addEventListener('click', addTask);
 document.addEventListener('DOMContentLoaded', recoverTask);
 ul.addEventListener('click', deleteTask);
 clearTaskBtn.addEventListener('click', clearTasks);
+filterInput.addEventListener('keyup', filterTasks);
